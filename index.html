@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Guide d'Avatar Client Idéal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #E2E8F0;
+            background: linear-gradient(135deg, #2a223f, #1e1a2c, #0d0a13);
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(13, 10, 19, 0.5);
+            z-index: 1;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(30, 26, 44, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(42, 34, 63, 0.5);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+            position: relative;
+            z-index: 2;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .form-section {
+            background: rgba(42, 34, 63, 0.6);
+            padding: 2rem;
+            border-radius: 1.5rem;
+            margin-bottom: 2.5rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(158, 126, 234, 0.2);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .form-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(158, 126, 234, 0.2);
+        }
+
+        input, textarea {
+            width: 100%;
+            background: rgba(30, 26, 44, 0.7);
+            border: 1px solid rgba(60, 52, 85, 0.8);
+            color: #E2E8F0;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            margin-top: 0.5rem;
+            transition: all 0.2s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #9F7AEA;
+            box-shadow: 0 0 0 3px rgba(159, 122, 234, 0.5);
+        }
+
+        .title-icon {
+            display: inline-block;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            color: #9F7AEA;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .ai-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .ai-button {
+            background: linear-gradient(90deg, #9F7AEA, #D6BCFA);
+            color: #1A202C;
+            font-weight: bold;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .ai-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(159, 122, 234, 0.4);
+        }
+        .ai-result {
+            margin-top: 2rem;
+            background: rgba(42, 34, 63, 0.6);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            white-space: pre-wrap;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #9F7AEA;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 2rem auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <h1 class="text-4xl font-bold text-center mb-6 text-purple-300">Mon Guide d'Avatar Client Idéal</h1>
+        <p class="text-center text-lg text-gray-300 mb-8">
+            Bonjour ! Remplissez ce guide pour définir votre client idéal et transformer votre stratégie de contenu.
+        </p>
+
+        <!-- Page 1 : Portrait Démographique -->
+        <div class="form-section">
+            <h2 class="text-2xl font-bold mb-4">
+                <span class="title-icon">👤</span>Page 1 : Portrait Démographique
+            </h2>
+            <p class="text-sm text-gray-300 mb-4">Qui est cette personne ? Donnez-lui une identité.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-gray-300">Nom de l'avatar</label>
+                    <input type="text" id="avatarName" placeholder="Ex: Laura">
+                </div>
+                <div>
+                    <label class="block text-gray-300">Âge</label>
+                    <input type="text" id="age" placeholder="Ex: 25-35 ans">
+                </div>
+                <div>
+                    <label class="block text-gray-300">Sexe</label>
+                    <input type="text" id="gender" placeholder="Femme">
+                </div>
+                <div>
+                    <label class="block text-gray-300">Localisation</label>
+                    <input type="text" id="location" placeholder="Paris, France">
+                </div>
+                <div>
+                    <label class="block text-gray-300">Situation familiale</label>
+                    <input type="text" id="familyStatus" placeholder="Célibataire">
+                </div>
+                <div>
+                    <label class="block text-gray-300">Profession</label>
+                    <input type="text" id="profession" placeholder="Designer UX">
+                </div>
+                <div>
+                    <label class="block text-gray-300">Revenu annuel approximatif</label>
+                    <input type="text" id="income" placeholder="30k€ - 45k€">
+                </div>
+                <div>
+                    <label class="block text-gray-300">Niveau d'éducation</label>
+                    <input type="text" id="education" placeholder="Bac +5">
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 2 : Sa Vie et ses Passions -->
+        <div class="form-section">
+            <h2 class="text-2xl font-bold mb-4">
+                <span class="title-icon">🌟</span>Page 2 : Sa Vie et ses Passions
+            </h2>
+            <p class="text-sm text-gray-300 mb-4">Plongez dans son monde. Qu'est-ce qui le/la fait vibrer ?</p>
+            <div class="grid grid-cols-1 gap-4">
+                <div>
+                    <label class="block text-gray-300">Centres d'intérêt et hobbies</label>
+                    <textarea rows="3" id="interests" placeholder="Voyages, cuisine, fitness"></textarea>
+                </div>
+                <div>
+                    <label class="block text-gray-300">Ses valeurs profondes</label>
+                    <textarea rows="3" id="values" placeholder="Écologie, créativité, authenticité"></textarea>
+                </div>
+                <div>
+                    <label class="block text-gray-300">Ses peurs et frustrations</label>
+                    <textarea rows="3" id="fears" placeholder="Manque de temps, échec professionnel"></textarea>
+                </div>
+                <div>
+                    <label class="block text-gray-300">Ses rêves et aspirations</label>
+                    <textarea rows="3" id="aspirations" placeholder="Lancer sa propre entreprise, voyager plus"></textarea>
+                </div>
+                <div>
+                    <label class="block text-gray-300">Où passe-t-il/elle son temps en ligne ?</label>
+                    <textarea rows="3" id="onlineHabits" placeholder="TikTok, Instagram, blogs de design"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 3 : Le Point de Douleur et Ma Solution -->
+        <div class="form-section">
+            <h2 class="text-2xl font-bold mb-4">
+                <span class="title-icon">💡</span>Page 3 : Le Point de Douleur et Ma Solution
+            </h2>
+            <p class="text-sm text-gray-300 mb-4">Quel problème a-t-il/elle, et comment votre produit est-il la réponse ?</p>
+            <div class="grid grid-cols-1 gap-4">
+                <div>
+                    <label class="block text-gray-300">Son plus grand défi</label>
+                    <textarea rows="2" id="biggestChallenge" placeholder="Difficulté à trouver des clients réguliers"></textarea>
+                </div>
+                <div>
+                    <label class="block text-gray-300">Problèmes quotidiens rencontrés</label>
+                    <textarea rows="2" id="dailyProblems" placeholder="Organisation, gestion des finances, manque d'inspiration"></textarea>
+                </div>
+                <div>
+                    <label class="block text-gray-300">Comment mon produit résout-il ses problèmes ?</label>
+                    <textarea rows="2" id="productSolution" placeholder="Mon produit est un outil de planification qui..."></textarea>
+                </div>
+                <div>
+                    <label class="block text-gray-300">Principal bénéfice de mon produit</label>
+                    <textarea rows="2" id="productBenefit" placeholder="Gagner du temps, être plus organisé"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Page 4 : Le Message qui Résonne -->
+        <div class="form-section">
+            <h2 class="text-2xl font-bold mb-4">
+                <span class="title-icon">📢</span>Page 4 : Le Message qui Résonne
+            </h2>
+            <p class="text-sm text-gray-300 mb-4">Trouvez le bon ton de voix et les mots qui le/la feront s'arrêter.</p>
+            <div class="grid grid-cols-1 gap-4">
+                <div>
+                    <label class="block text-gray-300">Ton de voix à adopter</label>
+                    <textarea rows="2" id="tone" placeholder="Amica, expert, inspirant"></textarea>
+                </div>
+                <div>
+                    <label class="block text-gray-300">Mots-clés ou phrases clés</label>
+                    <textarea rows="2" id="keywords" placeholder="Productivité, créativité, liberté, entrepreneur"></textarea>
+                </div>
+                <div>
+                    <label class="block text-gray-300">Pitch du produit en une phrase</label>
+                    <textarea rows="2" id="pitch" placeholder="L'outil de gestion qui vous permet de vous concentrer sur votre passion."></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Boutons IA -->
+        <div class="ai-buttons">
+            <button class="ai-button" onclick="generateAIResponse('summary')">Générer un résumé de l'avatar ✨</button>
+            <button class="ai-button" onclick="generateAIResponse('content')">Idées de contenu pour TikTok ✨</button>
+        </div>
+
+        <!-- Zone de résultat de l'IA -->
+        <div id="aiResult" class="ai-result hidden">
+            <div id="loadingSpinner" class="loading-spinner hidden"></div>
+            <p id="resultText"></p>
+        </div>
+
+    </div>
+
+    <script>
+        function collectFormData() {
+            const data = {};
+            const inputs = document.querySelectorAll('input, textarea');
+            inputs.forEach(input => {
+                data[input.id] = input.value;
+            });
+            return data;
+        }
+
+        async function generateAIResponse(type) {
+            const data = collectFormData();
+            const resultDiv = document.getElementById('aiResult');
+            const resultText = document.getElementById('resultText');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            resultDiv.classList.remove('hidden');
+            loadingSpinner.classList.remove('hidden');
+            resultText.textContent = '';
+
+            let prompt = "";
+            let title = "";
+
+            if (type === 'summary') {
+                title = "Résumé de l'Avatar Client ✨";
+                prompt = `En te basant sur les informations suivantes, rédige un profil client détaillé et inspirant pour une entreprise. Le texte doit être en français. Utilise des emojis pour un aspect visuel.\n\n`
+                for (const key in data) {
+                    if (data[key]) {
+                        prompt += `${key}: ${data[key]}\n`;
+                    }
+                }
+            } else if (type === 'content') {
+                title = "Idées de contenu pour TikTok ✨";
+                prompt = `En te basant sur les informations suivantes sur un client cible et son produit, génère 5 idées de vidéos pour TikTok. Pour chaque idée, inclure un titre, un concept et les mots-clés ou hashtags pertinents. Le ton doit être engageant et adapté à TikTok. Le texte doit être en français.\n\n`
+                for (const key in data) {
+                    if (data[key]) {
+                        prompt += `${key}: ${data[key]}\n`;
+                    }
+                }
+            }
+
+            try {
+                const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                const payload = { contents: chatHistory };
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                let response;
+                let result;
+                let retryCount = 0;
+                const maxRetries = 5;
+                const baseDelay = 1000;
+
+                while (retryCount < maxRetries) {
+                    try {
+                        response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        if (response.status === 429) {
+                            const delay = baseDelay * Math.pow(2, retryCount);
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                            retryCount++;
+                            continue;
+                        }
+
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+
+                        result = await response.json();
+                        break;
+                    } catch (error) {
+                        if (retryCount < maxRetries - 1) {
+                            const delay = baseDelay * Math.pow(2, retryCount);
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                            retryCount++;
+                        } else {
+                            throw error;
+                        }
+                    }
+                }
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const text = result.candidates[0].content.parts[0].text;
+                    resultText.innerHTML = `<strong>${title}</strong><br><br>${text}`;
+                } else {
+                    resultText.textContent = "Désolé, je n'ai pas pu générer de contenu. Veuillez réessayer.";
+                }
+            } catch (error) {
+                console.error("Erreur lors de l'appel de l'API Gemini:", error);
+                resultText.textContent = "Une erreur est survenue. Veuillez vérifier votre connexion et réessayer.";
+            } finally {
+                loadingSpinner.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
+
