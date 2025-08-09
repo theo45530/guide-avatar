@@ -277,6 +277,9 @@
     </div>
 
     <script>
+        // Remplacez cette URL par l'URL de votre fonction Cloud déployée
+        const CLOUD_FUNCTION_URL = "https://us-central1-klicksell-auth.cloudfunctions.net/generateContent";
+
         function collectFormData() {
             const data = {};
             const inputs = document.querySelectorAll('input, textarea');
@@ -318,60 +321,21 @@
             }
 
             try {
-                const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
-                const payload = { contents: chatHistory };
-                const apiKey = "";
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                const response = await fetch(CLOUD_FUNCTION_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: prompt })
+                });
 
-                let response;
-                let result;
-                let retryCount = 0;
-                const maxRetries = 5;
-                const baseDelay = 1000;
-
-                while (retryCount < maxRetries) {
-                    try {
-                        response = await fetch(apiUrl, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(payload)
-                        });
-
-                        if (response.status === 429) {
-                            const delay = baseDelay * Math.pow(2, retryCount);
-                            await new Promise(resolve => setTimeout(resolve, delay));
-                            retryCount++;
-                            continue;
-                        }
-
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-
-                        result = await response.json();
-                        break;
-                    } catch (error) {
-                        if (retryCount < maxRetries - 1) {
-                            const delay = baseDelay * Math.pow(2, retryCount);
-                            await new Promise(resolve => setTimeout(resolve, delay));
-                            retryCount++;
-                        } else {
-                            throw error;
-                        }
-                    }
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    const text = result.candidates[0].content.parts[0].text;
-                    resultText.innerHTML = `<strong>${title}</strong><br><br>${text}`;
-                } else {
-                    resultText.textContent = "Désolé, je n'ai pas pu générer de contenu. Veuillez réessayer.";
-                }
+                const text = await response.text();
+                resultText.innerHTML = `<strong>${title}</strong><br><br>${text}`;
             } catch (error) {
-                console.error("Erreur lors de l'appel de l'API Gemini:", error);
-                resultText.textContent = "Une erreur est survenue. Veuillez vérifier votre connexion et réessayer.";
+                console.error("Erreur lors de l'appel de l'API:", error);
+                resultText.textContent = "Une erreur est survenue. Veuillez vérifier la configuration du serveur et réessayer.";
             } finally {
                 loadingSpinner.classList.add('hidden');
             }
@@ -379,4 +343,3 @@
     </script>
 </body>
 </html>
-
